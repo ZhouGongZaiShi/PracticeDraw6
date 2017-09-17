@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -26,6 +27,7 @@ public class Practice04Alpha extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    private boolean isShowed = true;
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -33,10 +35,18 @@ public class Practice04Alpha extends RelativeLayout {
         animateBt = (Button) findViewById(R.id.animateBt);
         imageView = (ImageView) findViewById(R.id.imageView);
 
+        final ViewPropertyAnimator animate = imageView.animate();
+        animate.setDuration(1000);
         animateBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
                 // TODO 在这里处理点击事件，通过 View.animate().alpha() 来改变 View 的透明度
+                if (isShowed){
+                    animate.alpha(0);
+                }else {
+                    animate.alpha(1);
+                }
+                isShowed = !isShowed;
             }
         });
     }

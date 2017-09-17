@@ -9,11 +9,13 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.view.ViewPropertyAnimator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.hencoder.hencoderpracticedraw6.R;
+import com.hencoder.hencoderpracticedraw6.Utils;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static com.hencoder.hencoderpracticedraw6.Utils.dpToPixel;
@@ -34,6 +36,9 @@ public class Practice01Translation extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    private int animType = 0;
+    private int animTypeCount = SDK_INT == Build.VERSION_CODES.LOLLIPOP ? 6 :4;
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -49,6 +54,36 @@ public class Practice01Translation extends RelativeLayout {
             @Override
             public void onClick(final View v) {
                 // TODO 在这里处理点击事件，通过 View.animate().translationX/Y/Z() 来让 View 平移
+                ViewPropertyAnimator animator = imageView.animate();
+                switch (animType) {
+                    case 0:
+                        animator.translationX(Utils.dpToPixel(100));
+                        break;
+                    case 1:
+                        animator.translationX(0);
+                        break;
+                    case 2:
+                        animator.translationY(Utils.dpToPixel(50));
+                        break;
+                    case 3:
+                        animator.translationY(0);
+                        break;
+                    case 4:
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            animator.translationZ(Utils.dpToPixel(10));
+                        }
+                        break;
+                    case 5:
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            animator.translationZ(0);
+                        }
+                        break;
+                }
+                if (animType == animTypeCount -1) {
+                    animType = 0;
+                } else {
+                    animType++;
+                }
             }
         });
     }

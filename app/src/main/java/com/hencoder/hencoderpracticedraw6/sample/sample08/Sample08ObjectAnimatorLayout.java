@@ -36,7 +36,7 @@ public class Sample08ObjectAnimatorLayout extends RelativeLayout {
         animateBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(view, "progress", 0, 65);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(view, "progress", 0, 100);
                 animator.setDuration(1000);
                 animator.setInterpolator(new FastOutSlowInInterpolator());
                 animator.start();
